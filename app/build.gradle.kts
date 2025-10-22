@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://homolog.crosoften.com:3015/\"")
+            buildConfigField("String", "BASE_URL", "\"https://60bd336db8ab3700175a03b3.mockapi.io/\"")
         }
         release {
             isMinifyEnabled = false

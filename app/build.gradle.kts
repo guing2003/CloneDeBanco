@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -23,6 +23,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://60bd336db8ab3700175a03b3.mockapi.io/\"")
         }
         release {
+            buildConfigField("String", "BASE_URL", "\"https://60bd336db8ab3700175a03b3.mockapi.io/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -35,7 +36,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3" // versão compatível com seu Compose BOM 2024.09.00
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     kotlinOptions {
@@ -48,6 +49,10 @@ android {
 }
 
 dependencies {
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
     //Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 

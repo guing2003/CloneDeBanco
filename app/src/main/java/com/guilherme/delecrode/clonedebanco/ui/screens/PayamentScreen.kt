@@ -1,5 +1,6 @@
 package com.guilherme.delecrode.clonedebanco.ui.screens
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,15 +28,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.guilherme.delecrode.clonedebanco.data.repository.AuthRepositoryImpl
+import com.guilherme.delecrode.clonedebanco.ui.screens.login.AuthViewModel
 import com.guilherme.delecrode.clonedebanco.ui.theme.CloneDeBancoTheme
 import com.guilherme.delecrode.clonedebanco.ui.theme.PrimaryTextColor
 import com.guilherme.delecrode.clonedebanco.ui.theme.SecondaryTextColor
+import kotlinx.coroutines.flow.first
+import org.koin.androidx.compose.koinViewModel
+import org.koin.viewmodel.factory.KoinViewModelFactory
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PayamentScreen(navController: NavController) {
+fun PayamentScreen(navController: NavController, authViewModel: AuthViewModel =  koinViewModel()) {
+
+    val user = authViewModel.savedUser.collectAsState()
 
     Scaffold(
         topBar = {
@@ -75,7 +86,7 @@ fun PayamentScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(18.dp))
 
             Text(
-                text = "Cliente: Maria Silva",
+                text = "Cliente: ${user.value?.name}",
                 color = PrimaryTextColor,
                 fontSize = 18.sp,
             )
@@ -83,7 +94,7 @@ fun PayamentScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Agência: 1234 | Conta: 56789-0",
+                text = "Agência: ${user.value?.branchNumber} | Conta: ${user.value?.accountNumber}",
                 color = SecondaryTextColor,
                 fontSize = 16.sp,
             )
@@ -91,7 +102,7 @@ fun PayamentScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(18.dp))
 
             Text(
-                text = "Saldo: R$1500,00",
+                text = "Saldo: R$${user.value?.checkingAccountBalance}",
                 color = PrimaryTextColor,
                 fontSize = 16.sp,
             )

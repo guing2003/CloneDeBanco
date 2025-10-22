@@ -12,7 +12,7 @@ val appModule = module {
 
     single { RetrofitInstance.authApi }
 
-    single<AuthRepository> { AuthRepositoryImpl(get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
 
     viewModel { AuthViewModel(get()) }
 }

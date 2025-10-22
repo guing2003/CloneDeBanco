@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,7 +58,6 @@ fun LoginScreen(
     navController: NavController,
 ) {
     val scrollState = rememberScrollState()
-    val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
     var email by remember { mutableStateOf("") }
@@ -70,9 +70,10 @@ fun LoginScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "LOGIN",
+                        text = "Login",
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -147,6 +148,7 @@ fun LoginScreen(
                         !isPasswordValid(password) -> Toast.makeText(context, "Senha deve ter 6 caracteres, 1 letra e 1 número!", Toast.LENGTH_SHORT).show()
                         else -> {
                             // ação de login
+                            navController.navigate(AppDestinations.Payament.route)
                         }
                     }
                 },
@@ -162,12 +164,10 @@ fun LoginScreen(
 }
 
 fun isEmailValid(email: String): Boolean {
-    // Checa se contém um '@' e algum texto antes/depois
     return Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matches(email)
 }
 
 fun isPasswordValid(password: String): Boolean {
-    // Pelo menos 6 caracteres, pelo menos 1 letra e 1 número
     return Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$").matches(password)
 }
 

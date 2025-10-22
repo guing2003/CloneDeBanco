@@ -35,7 +35,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3" // versão compatível com seu Compose BOM 2024.09.00
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     kotlinOptions {

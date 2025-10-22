@@ -76,9 +76,9 @@ fun PasswordTextField(
                 }) {
                     Icon(
                         painter = if (onVisibilityChange != null) {
-                            if (isPasswordVisible) painterResource(R.drawable.ic_visibility_24) else painterResource(R.drawable.ic_visibility_24)
+                            if (isPasswordVisible) painterResource(R.drawable.ic_visibility_off_24) else painterResource(R.drawable.ic_visibility_24)
                         } else {
-                            if (passwordVisible)painterResource( R.drawable.ic_visibility_24) else painterResource(R.drawable.ic_visibility_24)
+                            if (passwordVisible)painterResource( R.drawable.ic_visibility_off_24) else painterResource(R.drawable.ic_visibility_24)
                         },
                         contentDescription = if (onVisibilityChange != null) {
                             if (isPasswordVisible) "Hide password" else "Show password"

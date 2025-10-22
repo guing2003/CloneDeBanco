@@ -18,7 +18,7 @@ fun AppNavHost() {
         startDestination = AppDestinations.Login.route
     ) {
         composable(AppDestinations.Login.route) {
-            LoginScreen(/*navController = navController, authViewModel*/)
+            LoginScreen(navController = navController)
         }
 
     }

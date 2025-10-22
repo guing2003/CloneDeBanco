@@ -2,6 +2,7 @@ package com.guilherme.delecrode.clonedebanco.data.remote
 
 import com.guilherme.delecrode.clonedebanco.BuildConfig
 import com.guilherme.delecrode.clonedebanco.data.remote.service.AuthApiService
+import com.guilherme.delecrode.clonedebanco.data.remote.service.PaymentApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,6 +33,10 @@ object RetrofitInstance {
 
     val authApi: AuthApiService by lazy {
         retrofit.create(AuthApiService::class.java)
+    }
+
+    val paymentApi: PaymentApiService by lazy{
+        retrofit.create(PaymentApiService::class.java)
     }
 
 

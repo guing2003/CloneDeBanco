@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.guilherme.delecrode.clonedebanco.data.mapper.toDomain
+import com.guilherme.delecrode.clonedebanco.data.mapper.toUserDomain
 import com.guilherme.delecrode.clonedebanco.data.remote.service.AuthApiService
 import com.guilherme.delecrode.clonedebanco.domain.model.User
 import com.guilherme.delecrode.clonedebanco.domain.repository.AuthRepository
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 private val Context.dataStore by preferencesDataStore("auth_prefs")
@@ -31,7 +30,7 @@ class AuthRepositoryImpl(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (!body.isNullOrEmpty()) {
-                    val user = body.first().toDomain()
+                    val user = body.first().toUserDomain()
                     saveUser(user)
                     Result.success(user)
                 } else {

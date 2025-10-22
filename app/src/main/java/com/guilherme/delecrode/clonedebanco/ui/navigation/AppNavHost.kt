@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.guilherme.delecrode.clonedebanco.ui.screens.login.LoginScreen
-import com.guilherme.delecrode.clonedebanco.ui.screens.PayamentScreen
+import com.guilherme.delecrode.clonedebanco.ui.screens.payament.PaymentScreen
 
 @Composable
 fun AppNavHost() {
@@ -20,7 +20,7 @@ fun AppNavHost() {
         }
 
         composable(AppDestinations.Payament.route){
-            PayamentScreen(navController = navController)
+            PaymentScreen(navController = navController)
         }
 
     }

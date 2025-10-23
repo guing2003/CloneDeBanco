@@ -16,25 +16,28 @@ class PaymentViewModel(private val paymentRepository: PaymentRepository) : ViewM
     private val _uiState = MutableStateFlow(PaymentUiState())
     val uiState: StateFlow<PaymentUiState> = _uiState
 
+
     fun getPayments() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            val result = paymentRepository.payament()
 
-            result.fold(
-                onSuccess = { payments ->
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        payments = payments
-                    )
-                },
-                onFailure = { error ->
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = error.message
+            paymentRepository.getPayments()
+                .collect { result ->
+                    result.fold(
+                        onSuccess = { payments ->
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                payments = payments
+                            )
+                        },
+                        onFailure = { error ->
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = error.message
+                            )
+                        }
                     )
                 }
-            )
         }
     }
 }

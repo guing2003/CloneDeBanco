@@ -52,7 +52,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     navController: NavController,
-    authViewModel: AuthViewModel = koinViewModel()
+    authViewModel: AuthViewModel
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -67,9 +67,7 @@ fun LoginScreen(
 
     LaunchedEffect(uiState.user) {
         uiState.user?.let {
-            navController.navigate(AppDestinations.Payament.route) {
-                popUpTo(AppDestinations.Login.route) { inclusive = true }
-            }
+            navController.navigate(AppDestinations.Payament.route)
         }
     }
 
@@ -189,7 +187,9 @@ fun LoginScreen(
     }
     if (uiState.isLoading) {
         Box(
-            modifier = Modifier.fillMaxSize().background(Color.LightGray),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.LightGray),
             contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator()

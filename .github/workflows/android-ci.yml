@@ -23,5 +23,8 @@ jobs:
       - name: Give execute permission for gradlew
         run: chmod +x gradlew
 
+- name: Run Lint
+        run: ./gradlew lint
+
       - name: Build with Gradle
         run: ./gradlew build

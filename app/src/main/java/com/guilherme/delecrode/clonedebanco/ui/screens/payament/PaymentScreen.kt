@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -47,8 +46,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PaymentScreen(
     navController: NavController,
-    authViewModel: AuthViewModel = koinViewModel(),
-    paymentViewModel: PaymentViewModel = koinViewModel()
+    authViewModel: AuthViewModel,
+    paymentViewModel: PaymentViewModel
 ) {
 
     val user = authViewModel.savedUser.collectAsState()
@@ -81,7 +80,10 @@ fun PaymentScreen(
                     containerColor = Color.White
                 ),
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        authViewModel.clearUser()
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             Icons.Default.ArrowBack,
                             contentDescription = null
@@ -182,6 +184,8 @@ fun PaymentScreenPreview() {
     CloneDeBancoTheme {
         PaymentScreen(
             navController = navController,
+            koinViewModel(),
+            koinViewModel()
         )
     }
 }

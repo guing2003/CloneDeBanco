@@ -3,7 +3,6 @@ package com.guilherme.delecrode.clonedebanco.domain.repository
 import com.guilherme.delecrode.clonedebanco.data.local.entity.PaymentEntity
 import com.guilherme.delecrode.clonedebanco.domain.model.Payment
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 interface PaymentRepository {
     suspend fun getPaymentFromAPI(): Result<List<Payment>>

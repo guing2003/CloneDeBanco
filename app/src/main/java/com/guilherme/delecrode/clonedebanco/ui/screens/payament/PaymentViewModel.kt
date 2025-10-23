@@ -2,10 +2,7 @@ package com.guilherme.delecrode.clonedebanco.ui.screens.payament
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.guilherme.delecrode.clonedebanco.domain.model.Payment
-import com.guilherme.delecrode.clonedebanco.domain.model.User
 import com.guilherme.delecrode.clonedebanco.domain.repository.PaymentRepository
-import com.guilherme.delecrode.clonedebanco.ui.screens.login.LoginUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

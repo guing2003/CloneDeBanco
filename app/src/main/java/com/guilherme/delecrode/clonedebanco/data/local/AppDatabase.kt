@@ -26,8 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                 context,
                 AppDatabase::class.java,
                 "clone_bank.db"
-            )//.addMigrations(MIGRATION_1_2)
-                .build().also {
+            ).build().also {
                     db = it
                 }
         }

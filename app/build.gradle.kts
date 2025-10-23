@@ -32,15 +32,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -49,10 +49,21 @@ android {
 }
 
 dependencies {
+
+    // Testes unitários
+    testImplementation("junit:junit:4.13.2")
+    // Coroutines compatível com Kotlin 1.9
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // MockK compatível com Kotlin 1.9
+    testImplementation("io.mockk:mockk:1.13.7")
+    // Turbine compatível com Kotlin 1.9
+    testImplementation("app.cash.turbine:turbine:0.12.3")
+
     //Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
     //Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 

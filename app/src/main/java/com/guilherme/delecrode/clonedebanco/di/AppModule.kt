@@ -1,6 +1,8 @@
 package com.guilherme.delecrode.clonedebanco.di
 
 import androidx.room.Room
+import com.guilherme.delecrode.clonedebanco.data.datasource.AuthLocalDataSource
+import com.guilherme.delecrode.clonedebanco.data.datasource.AuthLocalDataSourceImpl
 import com.guilherme.delecrode.clonedebanco.data.local.AppDatabase
 import com.guilherme.delecrode.clonedebanco.data.remote.RetrofitInstance
 import com.guilherme.delecrode.clonedebanco.data.repository.AuthRepositoryImpl
@@ -28,6 +30,7 @@ val appModule = module {
 
     single { get<AppDatabase>().paymentDao() }
 
+    single<AuthLocalDataSource> { AuthLocalDataSourceImpl(get()) }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<PaymentRepository> { PaymentRepositoryImpl(get(), get()) }

@@ -1,4 +1,4 @@
-# Clone de Banco - Teste Técnico Android![Android CI](https://github.com/guing2003/CloneDeBanco/actions/workflows/android.yml/badge.svg?branch=develop)
+# Clone de Banco - Teste Técnico Android
 
 
 ## 🎯 Objetivo do Projeto

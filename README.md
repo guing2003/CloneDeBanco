@@ -76,7 +76,7 @@ Para executar o projeto localmente, siga os passos abaixo:
    
     ◦Aguarde alguns instantes enquanto o Android Studio indexa os arquivos e o Gradle baixa todas as dependências necessárias.
        -   Você pode acompanhar o progresso na barra de status inferior.
-       -   
+           
 6.  **Execute o Aplicativo**
    
     ◦Selecione um emulador disponível ou conecte um dispositivo Android físico ao seu computador (com o modo de desenvolvedor ativado).
@@ -86,9 +86,13 @@ Para executar o projeto localmente, siga os passos abaixo:
 ⚙️ **Integração Contínua (CI)**
 
 Este projeto possui um pipeline de Integração Contínua configurado com GitHub Actions (.github/workflows/android.yml). 
+
 A cada push ou pull request para o branch develop, o workflow executa automaticamente as seguintes tarefas:  
+
   1.Lint Check: Analisa o código em busca de problemas estruturais e de qualidade.
+  
   2.Unit Tests: Executa todos os testes unitários para garantir que nenhuma regressão foi introduzida.
+  
   3.Assemble Build: Compila o aplicativo para garantir que ele está funcional e sem erros de compilação.Isso assegura a estabilidade e a qualidade contínua da base de código.
   
   

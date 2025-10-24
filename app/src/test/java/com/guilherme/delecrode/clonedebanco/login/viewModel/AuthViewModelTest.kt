@@ -38,14 +38,12 @@ class AuthViewModelTest {
 
     @Before
     fun setup() {
-        Dispatchers.setMain(testDispatcher) // <<< ESSENCIAL
+        Dispatchers.setMain(testDispatcher)
 
         authRepository = mockk()
 
-        // Configura o login
         coEvery { authRepository.login() } returns Result.success(testUser)
 
-        // Configura o getUser para retornar um Flow
         every { authRepository.getUser() } returns flowOf(testUser)
 
         viewModel = AuthViewModel(authRepository)
@@ -53,21 +51,20 @@ class AuthViewModelTest {
 
     @After
     fun tearDown() {
-        Dispatchers.resetMain() // volta ao normal
+        Dispatchers.resetMain()
     }
 
     @Test
     fun `login com sucesso atualiza uiState com user`() = runTest(testDispatcher) {
-        viewModel.login()
-        testDispatcher.scheduler.advanceUntilIdle() // garante execução de todas coroutines
+        testDispatcher.scheduler.advanceUntilIdle()
 
         viewModel.uiState.test {
-            viewModel.login()  // dispara o login enquanto o Turbine já está coletando
+            viewModel.login("teste@gmail.com", "teste123")
             testDispatcher.scheduler.advanceUntilIdle()
 
-            awaitItem() // estado inicial
-            awaitItem() // isLoading = true
-            val successState = awaitItem() // user preenchido
+            awaitItem()
+            awaitItem()
+            val successState = awaitItem()
 
             assertEquals(testUser, successState.user)
             cancelAndIgnoreRemainingEvents()
@@ -81,16 +78,73 @@ class AuthViewModelTest {
         coEvery { authRepository.login() } returns Result.failure(Exception(errorMessage))
 
         viewModel.uiState.test {
-            viewModel.login() // dispara login enquanto Turbine coleta
+            viewModel.login("gui@teste.com", "abc123")
             testDispatcher.scheduler.advanceUntilIdle()
 
-            awaitItem() // estado inicial
-            awaitItem() // isLoading = true
-            val failureState = awaitItem() // erro
+            awaitItem()
+            awaitItem()
+            val failureState = awaitItem()
 
             assertEquals(errorMessage, failureState.error)
             assertFalse(failureState.isLoading)
             assertNull(failureState.user)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `login com email invalido retorna erro de validacao`() = runTest {
+        viewModel.uiState.test {
+            viewModel.login("gui", "abc123")
+
+            val initialState = awaitItem()
+            val validationState = awaitItem()
+
+            assertEquals("Email inválido", validationState.emailError)
+            assertNull(validationState.passwordError)
+            assertFalse(validationState.isLoading)
+            assertNull(validationState.user)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `login com senha invalida retorna erro de validacao`() = runTest {
+        viewModel.uiState.test {
+            viewModel.login("gui@teste.com", "123456")
+
+            val initialState = awaitItem()
+            val validationState = awaitItem()
+
+            assertNull(validationState.emailError)
+            assertEquals(
+                "Senha deve conter pelo menos 1 letra e 1 número",
+                validationState.passwordError
+            )
+            assertFalse(validationState.isLoading)
+            assertNull(validationState.user)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `login com senha invalida menos de 6 caracteres retorna erro de validacao`() = runTest {
+        viewModel.uiState.test {
+            viewModel.login("gui@teste.com", "123")
+
+            val initialState = awaitItem()
+            val validationState = awaitItem()
+
+            assertNull(validationState.emailError)
+            assertEquals(
+                "Senha deve ter pelo menos 6 caracteres",
+                validationState.passwordError
+            )
+            assertFalse(validationState.isLoading)
+            assertNull(validationState.user)
 
             cancelAndIgnoreRemainingEvents()
         }
@@ -105,8 +159,8 @@ class AuthViewModelTest {
     }
 
     @Test
-    fun `clearUser remove user do uiState`() = runTest(testDispatcher) {
-        viewModel.clearUser()
+    fun `logout remove user do uiState`() = runTest(testDispatcher) {
+        viewModel.logout()
         testDispatcher.scheduler.advanceUntilIdle()
         assertNull(viewModel.uiState.value.user)
     }

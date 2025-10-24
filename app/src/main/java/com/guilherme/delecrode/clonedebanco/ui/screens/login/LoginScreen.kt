@@ -65,8 +65,8 @@ fun LoginScreen(
     val uiState by authViewModel.uiState.collectAsState()
 
 
-    LaunchedEffect(uiState.user) {
-        uiState.user?.let {
+    LaunchedEffect(uiState.isLoginSuccessful) {
+        if (uiState.isLoginSuccessful) {
             navController.navigate(AppDestinations.Payament.route)
         }
     }
@@ -76,6 +76,18 @@ fun LoginScreen(
         uiState.error?.let { msg ->
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
             authViewModel.clearState()
+        }
+    }
+
+    LaunchedEffect(email) {
+        if (uiState.emailError != null) {
+            authViewModel.clearEmailError()
+        }
+    }
+
+    LaunchedEffect(password) {
+        if (uiState.passwordError != null) {
+            authViewModel.clearPasswordError()
         }
     }
 
@@ -92,7 +104,7 @@ fun LoginScreen(
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.White // fundo branco
+                    containerColor = Color.White
                 )
             )
         }
@@ -129,7 +141,9 @@ fun LoginScreen(
             EmailTextField(
                 value = email,
                 onValueChange = { email = it },
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Next,
+                isError = uiState.emailError != null,
+                errorMessage = uiState.emailError ?: ""
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -148,7 +162,9 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 imeAction = ImeAction.Done,
                 isPasswordVisible = passwordVisible,
-                onVisibilityChange = { passwordVisible = !passwordVisible }
+                onVisibilityChange = { passwordVisible = !passwordVisible },
+                isError = uiState.passwordError != null,
+                errorMessage = uiState.passwordError ?: ""
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -158,25 +174,9 @@ fun LoginScreen(
             PrimaryButton(
                 text = "ENTRAR",
                 onClick = {
-                    when {
-                        !isEmailValid(email) -> Toast.makeText(
-                            context,
-                            "Email inválido!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        !isPasswordValid(password) -> Toast.makeText(
-                            context,
-                            "Senha deve ter 6 caracteres, 1 letra e 1 número!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        else -> {
-                            authViewModel.login()
-                        }
-                    }
+                    authViewModel.login(email, password)
                 },
-                enabled = email.isNotBlank() && password.isNotBlank()
+                enabled = uiState.canLogin && email.isNotBlank() && password.isNotBlank()
             )
 
 
@@ -197,13 +197,6 @@ fun LoginScreen(
     }
 }
 
-fun isEmailValid(email: String): Boolean {
-    return Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$").matches(email)
-}
-
-fun isPasswordValid(password: String): Boolean {
-    return Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$").matches(password)
-}
 
 
 @Preview(showBackground = true)

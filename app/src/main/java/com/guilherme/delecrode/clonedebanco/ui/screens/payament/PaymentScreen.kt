@@ -2,6 +2,8 @@ package com.guilherme.delecrode.clonedebanco.ui.screens.payament
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.guilherme.delecrode.clonedebanco.ui.navigation.AppDestinations
 import com.guilherme.delecrode.clonedebanco.ui.screens.login.AuthViewModel
 import com.guilherme.delecrode.clonedebanco.ui.theme.CloneDeBancoTheme
 import com.guilherme.delecrode.clonedebanco.ui.theme.PrimaryTextColor
@@ -59,9 +62,10 @@ fun PaymentScreen(
     }
 
     LaunchedEffect(uiState.error) {
-        uiState.error?.let { msg ->
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-            Log.i("PaymentScreen", "PaymentScreen: $msg")
+        val error = uiState.error
+        if (error != null) {
+            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+            Log.i("PaymentScreen", "PaymentScreen: $error")
         }
     }
 
@@ -81,11 +85,15 @@ fun PaymentScreen(
                 ),
                 navigationIcon = {
                     IconButton(onClick = {
-                        authViewModel.clearUser()
-                        navController.popBackStack()
+                        authViewModel.logout()
+                        navController.navigate(AppDestinations.Login.route) {
+                            popUpTo(AppDestinations.Login.route) {
+                                inclusive = true
+                            }
+                        }
                     }) {
                         Icon(
-                            Icons.Default.ArrowBack,
+                            Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null
                         )
                     }
@@ -117,7 +125,7 @@ fun PaymentScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Agência: ${user.value?.branchNumber} | Conta: ${user.value?.accountNumber}",
+                text = "Agência: ${user.value?.branchNumber ?: "N/A"} | Conta: ${user.value?.accountNumber ?: "N/A"}",
                 color = SecondaryTextColor,
                 fontSize = 16.sp,
             )
@@ -125,7 +133,7 @@ fun PaymentScreen(
             Spacer(modifier = Modifier.height(18.dp))
 
             Text(
-                text = "Saldo: R$${user.value?.checkingAccountBalance}",
+                text = "Saldo: R$${user.value?.checkingAccountBalance ?: "0,00"}",
                 color = PrimaryTextColor,
                 fontSize = 16.sp,
             )

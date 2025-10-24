@@ -70,7 +70,6 @@ class PaymentRepositoryImplTest {
 
     @Test
     fun `getPaymentFromAPI falha retorna erro`() = runTest(testDispatcher) {
-        // Criar um Response.error com PaymentResponseDTO
         val response = Response.error<List<PaymentResponseDTO>>(500, mockk(relaxed = true))
         coEvery { apiService.getPayament() } returns response
 
@@ -116,11 +115,9 @@ class PaymentRepositoryImplTest {
 
     @Test
     fun `getPayments emite local se API falha`() = runTest(testDispatcher) {
-        // Response de erro com PaymentResponseDTO, tipo correto
         val response = Response.error<List<PaymentResponseDTO>>(500, mockk(relaxed = true))
         coEvery { apiService.getPayament() } returns response
 
-        // Mock do DAO para retornar dados locais
         every { dao.getAllPayments() } returns flowOf(listOf(paymentEntity))
 
         repository.getPayments().test {

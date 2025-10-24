@@ -68,19 +68,18 @@ Para executar o projeto localmente, siga os passos abaixo:
 
 2.  **Abra no Android Studio**
    
-    ◦Abra o Android Studio (recomenda-se a versão mais recente).
-    ◦No menu inicial, clique em "Open".
-    ◦Navegue até a pasta do projeto que você acabou de clonar e selecione-a.
+   ◦  Abra o Android Studio (recomenda-se a versão mais recente).
+   ◦  No menu inicial, clique em "Open".
+   ◦  Navegue até a pasta do projeto que você acabou de clonar e selecione-a.
   
 4.  **Sincronize o Projeto**
-   
-    ◦Aguarde alguns instantes enquanto o Android Studio indexa os arquivos e o Gradle baixa todas as dependências necessárias.
+
+   °  Aguarde alguns instantes enquanto o Android Studio indexa os arquivos e o Gradle baixa todas as dependências necessárias.
        -   Você pode acompanhar o progresso na barra de status inferior.
            
 6.  **Execute o Aplicativo**
-   
-    ◦Selecione um emulador disponível ou conecte um dispositivo Android físico ao seu computador (com o modo de desenvolvedor ativado).
-    ◦Pressione o botão Run 'app' (ícone de play ▶️) na barra de ferramentas superior ou use o atalho Shift + F10.
+   °  Selecione um emulador disponível ou conecte um dispositivo Android físico ao seu computador (com o modo de desenvolvedor ativado).
+   °  Pressione o botão Run 'app' (ícone de play ▶️) na barra de ferramentas superior ou use o atalho Shift + F10.
 
 
 ⚙️ **Integração Contínua (CI)**
@@ -88,12 +87,9 @@ Para executar o projeto localmente, siga os passos abaixo:
 Este projeto possui um pipeline de Integração Contínua configurado com GitHub Actions (.github/workflows/android.yml). 
 
 A cada push ou pull request para o branch develop, o workflow executa automaticamente as seguintes tarefas:  
-
-  1.Lint Check: Analisa o código em busca de problemas estruturais e de qualidade.
-  
-  2.Unit Tests: Executa todos os testes unitários para garantir que nenhuma regressão foi introduzida.
-  
-  3.Assemble Build: Compila o aplicativo para garantir que ele está funcional e sem erros de compilação.Isso assegura a estabilidade e a qualidade contínua da base de código.
+   1.  Lint Check: Analisa o código em busca de problemas estruturais e de qualidade.                                                                                                        
+   2.  Unit Tests: Executa todos os testes unitários para garantir que nenhuma regressão foi introduzida.                                                                                                          
+   3.  Assemble Build: Compila o aplicativo para garantir que ele está funcional e sem erros de compilação.Isso assegura a estabilidade e a qualidade contínua da base de código.                                                          
   
   
 Desenvolvido por Guilherme Nunes Gusson Delecrode

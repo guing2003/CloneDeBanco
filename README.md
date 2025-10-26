@@ -8,8 +8,8 @@ O objetivo foi criar um aplicativo bancário simples, composto por duas telas (L
 seguindo as melhores práticas de desenvolvimento Android moderno, com Jetpack Compose e uma arquitetura MVVM robusta.
 
 ## 🎬 Vídeo de Demonstração
-
-Em breve...
+[![Assista ao Vídeo](https://caminho/para/sua/imagem.jpg)]([https://link/do/seu/video_no_youtube.com](https://youtu.be/wXLWLhfIJzc))
+    
 
 ## ✨ Funcionalidades Implementadas
 

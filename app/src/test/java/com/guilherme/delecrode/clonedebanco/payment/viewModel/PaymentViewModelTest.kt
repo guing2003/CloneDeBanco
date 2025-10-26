@@ -57,7 +57,7 @@ class PaymentViewModelTest {
 
             coEvery { repository.getPayments() } returns flow {
                 emit(Result.failure(Exception("API falhou")))
-                emit(Result.success(payments)) // fallback local
+                emit(Result.success(payments))
             }
 
             viewModel.getPayments()
@@ -65,7 +65,6 @@ class PaymentViewModelTest {
 
             viewModel.uiState.test {
                 val state = awaitItem()
-                // Espera fallback
                 Assert.assertEquals(payments, state.payments)
                 Assert.assertEquals(false, state.isLoading)
                 cancelAndIgnoreRemainingEvents()

@@ -105,7 +105,7 @@ fun LoginScreen(
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.White // fundo branco
+                    containerColor = Color.White
                 )
             )
         }

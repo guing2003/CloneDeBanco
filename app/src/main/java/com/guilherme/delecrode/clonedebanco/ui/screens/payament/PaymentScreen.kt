@@ -2,8 +2,6 @@ package com.guilherme.delecrode.clonedebanco.ui.screens.payament
 
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -165,13 +163,13 @@ fun PaymentScreen(
                                 fontSize = 16.sp,
                             )
                             Text(
-                                text = payment.paymentDate ?: "00/00/0000",
+                                text = payment.paymentDate,
                                 color = SecondaryTextColor,
                                 fontSize = 14.sp,
                             )
                         }
                         Text(
-                            text = payment.electricityBill ?: "R$00,00",
+                            text = payment.electricityBill,
                             color = SecondaryTextColor,
                             fontSize = 16.sp,
                         )

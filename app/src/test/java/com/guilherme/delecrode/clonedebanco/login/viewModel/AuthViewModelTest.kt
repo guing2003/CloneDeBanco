@@ -1,23 +1,25 @@
 package com.guilherme.delecrode.clonedebanco.login.viewModel
 
 import app.cash.turbine.test
-import io.mockk.coEvery
-import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
-import com.guilherme.delecrode.clonedebanco.domain.repository.AuthRepository
 import com.guilherme.delecrode.clonedebanco.domain.model.User
+import com.guilherme.delecrode.clonedebanco.domain.repository.AuthRepository
 import com.guilherme.delecrode.clonedebanco.ui.screens.login.AuthViewModel
+import io.mockk.coEvery
 import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Before
+import org.junit.Test
 
 
 @OptIn(ExperimentalCoroutinesApi::class)

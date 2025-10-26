@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,7 +76,7 @@ fun PaymentScreen(
                 title = {
                     Text(
                         text = "Pagamentos",
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("payment_screen_title"),
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold
                     )
@@ -94,7 +95,7 @@ fun PaymentScreen(
                     }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+                            contentDescription = "Voltar"
                         )
                     }
                 }

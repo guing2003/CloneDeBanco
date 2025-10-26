@@ -51,11 +51,11 @@ fun PasswordTextField(
     val focusManager = LocalFocusManager.current
     var passwordVisible by remember { mutableStateOf(isPasswordVisible) }
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(PrimaryFieldColor, RoundedCornerShape(8.dp)),
             placeholder = { Text(label) },

@@ -20,6 +20,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Give execute permission for gradlew
         run: chmod +x gradlew
 
@@ -35,6 +45,7 @@ jobs:
           api-level: 30
           arch: arm64-v8a
           disable-animations: true
+          emulator-boot-timeout: 1200
           script: ./gradlew connectedDebugAndroidTest
 
       - name: Build with Gradle

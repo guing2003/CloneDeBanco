@@ -46,18 +46,25 @@ android {
         compose = true
         buildConfig = true
     }
+    packaging {
+        resources {
+            excludes.add("META-INF/LICENSE.md")
+            excludes.add("META-INF/LICENSE-notice.md")
+        }
+    }
 }
 
 dependencies {
 
     // Testes unitários
     testImplementation("junit:junit:4.13.2")
-    // Coroutines compatível com Kotlin 1.9
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    // MockK compatível com Kotlin 1.9
     testImplementation("io.mockk:mockk:1.13.7")
-    // Turbine compatível com Kotlin 1.9
     testImplementation("app.cash.turbine:turbine:0.12.3")
+
+    //Testes Instrumentados
+    androidTestImplementation("io.insert-koin:koin-test-junit4:3.5.6")
+    androidTestImplementation("io.mockk:mockk-android:1.13.10")
 
     //Room
     implementation(libs.androidx.room.runtime)
@@ -70,10 +77,9 @@ dependencies {
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.7")
 
-    // Koin Core
-    implementation("io.insert-koin:koin-core:4.0.2")
-    implementation("io.insert-koin:koin-android:4.0.2")
-    implementation("io.insert-koin:koin-androidx-compose:4.0.2")
+    // Koin
+    implementation("io.insert-koin:koin-android:3.5.6")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.6")
 
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")

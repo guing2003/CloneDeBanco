@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -139,6 +140,7 @@ fun LoginScreen(
             )
 
             EmailTextField(
+                modifier = Modifier.testTag("email_field"),
                 value = email,
                 onValueChange = { email = it },
                 imeAction = ImeAction.Next,
@@ -158,6 +160,7 @@ fun LoginScreen(
             )
 
             PasswordTextField(
+                modifier = Modifier.testTag("password_field"),
                 value = password,
                 onValueChange = { password = it },
                 imeAction = ImeAction.Done,
@@ -169,9 +172,8 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-
-
             PrimaryButton(
+                modifier = Modifier.testTag("login_button"),
                 text = "ENTRAR",
                 onClick = {
                     authViewModel.login(email, password)
@@ -211,4 +213,3 @@ fun LoginScreenPreview() {
         )
     }
 }
-

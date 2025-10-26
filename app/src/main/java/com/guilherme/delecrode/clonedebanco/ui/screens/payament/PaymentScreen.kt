@@ -2,8 +2,6 @@ package com.guilherme.delecrode.clonedebanco.ui.screens.payament
 
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,7 +74,7 @@ fun PaymentScreen(
                 title = {
                     Text(
                         text = "Pagamentos",
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("payment_screen_title"),
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold
                     )
@@ -94,7 +93,7 @@ fun PaymentScreen(
                     }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+                            contentDescription = "Voltar"
                         )
                     }
                 }
@@ -164,13 +163,13 @@ fun PaymentScreen(
                                 fontSize = 16.sp,
                             )
                             Text(
-                                text = payment.paymentDate ?: "00/00/0000",
+                                text = payment.paymentDate,
                                 color = SecondaryTextColor,
                                 fontSize = 14.sp,
                             )
                         }
                         Text(
-                            text = payment.electricityBill ?: "R$00,00",
+                            text = payment.electricityBill,
                             color = SecondaryTextColor,
                             fontSize = 16.sp,
                         )

@@ -5,6 +5,14 @@ import com.guilherme.delecrode.clonedebanco.data.model.PaymentResponseDTO
 import com.guilherme.delecrode.clonedebanco.domain.model.Payment
 
 
+fun PaymentResponseDTO.toDomain(): Payment {
+    return Payment(
+        paymentDate = this.paymentDate,
+        electricityBill = this.electricityBill,
+        id = this.id
+    )
+}
+
 fun PaymentEntity.toDomain(): Payment {
     return Payment(
         id = paymentId,
@@ -12,10 +20,10 @@ fun PaymentEntity.toDomain(): Payment {
         electricityBill = electricityBill
     )
 }
-fun PaymentResponseDTO.toEntity(): PaymentEntity {
+fun Payment.toEntity(): PaymentEntity {
     return PaymentEntity(
-        paymentDate = paymentDate,
-        electricityBill = electricityBill,
-        paymentId = id
+        paymentDate = this.paymentDate,
+        electricityBill = this.electricityBill,
+        paymentId = this.id
     )
 }

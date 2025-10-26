@@ -1,7 +1,6 @@
 package com.guilherme.delecrode.clonedebanco.data.repository
 
 import com.guilherme.delecrode.clonedebanco.data.local.dao.PaymentDao
-import com.guilherme.delecrode.clonedebanco.data.local.entity.PaymentEntity
 import com.guilherme.delecrode.clonedebanco.data.mapper.toDomain
 import com.guilherme.delecrode.clonedebanco.data.mapper.toEntity
 import com.guilherme.delecrode.clonedebanco.data.remote.service.PaymentApiService
@@ -23,9 +22,9 @@ class PaymentRepositoryImpl(
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    val paymentsEntity = body.map { it.toEntity() }
-                    savePaymentFromLocal(paymentsEntity)
-                    Result.success(paymentsEntity.map { it.toDomain() })
+                    val payments = body.map { it.toDomain() }
+                    savePaymentFromLocal(payments)
+                    Result.success(payments)
                 } else {
                     Result.failure(Exception("Resposta vazia do servidor"))
                 }
@@ -37,9 +36,10 @@ class PaymentRepositoryImpl(
         }
     }
 
-    override suspend fun savePaymentFromLocal(payment: List<PaymentEntity>): Result<Unit> {
+    override suspend fun savePaymentFromLocal(payments: List<Payment>): Result<Unit> {
         return try {
-            dao.insertPayments(payment)
+            val paymentEntities = payments.map { it.toEntity() }
+            dao.insertPayments(paymentEntities)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

@@ -44,12 +44,16 @@ jobs:
         with:
          api-level: 33
          target: google_apis
-         arch: arm64-v8a
-         profile: pixel_6
+         arch: x86_64
+         profile: Nexus 6
+         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -dns-server 8.8.8.8
          disable-animations: true
-         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none -camera-front none
-         emulator-boot-timeout: 1800
-         script: adb wait-for-device && sleep 30 && ./gradlew installDebug connectedDebugAndroidTest --stacktrace
+         script: |
+          adb devices
+          adb shell settings put global airplane_mode_on 0
+          adb shell svc wifi enable
+          adb shell am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false
+          ./gradlew connectedDebugAndroidTest --stacktrace
 
 
 

@@ -42,19 +42,28 @@ jobs:
       - name: Run Instrumented Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-         api-level: 33
-         target: google_apis
-         arch: x86_64
-         profile: Nexus 6
-         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -dns-server 8.8.8.8
-         disable-animations: true
-         script: |
-          adb devices
-          adb shell settings put global airplane_mode_on 0
-          adb shell svc wifi enable
-          adb shell am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false
-          ./gradlew connectedDebugAndroidTest --stacktrace
-
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          emulator-options: >
+            -no-window
+            -gpu swiftshader_indirect
+            -noaudio
+            -no-boot-anim
+            -no-snapshot
+            -netdelay none
+            -netspeed full
+          disable-animations: true
+          script: |
+            echo "Aguardando emulador iniciar..."
+            adb wait-for-device
+            until [[ "$(adb shell getprop sys.boot_completed 2>/dev/null)" == "1" ]]; do
+              echo "Emulador ainda inicializando..."
+              sleep 5
+            done
+            echo "Emulador pronto! Rodando testes..."
+            ./gradlew connectedDebugAndroidTest --stacktrace
 
 
       - name: Build with Gradle

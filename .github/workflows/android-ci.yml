@@ -52,7 +52,7 @@ jobs:
          force-avd-creation: true
          disable-animations: true
          emulator-boot-timeout: 1800
-         emulator-options: no-window-gpu off                 
+         emulator-options: -no-window-gpu off                 
          script: ./gradlew connectedDebugAndroidTest --stacktrace --no-daemon
 
       - name: Build with Gradle

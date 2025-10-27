@@ -85,7 +85,7 @@ Para executar o projeto localmente, siga os passos abaixo:
 
 ⚙️ **Integração Contínua (CI)**
 
-Este projeto possui um pipeline de Integração Contínua configurado com GitHub Actions (.github/workflows/android.yml). 
+Este projeto possui um pipeline de Integração Contínua configurado com GitHub Actions (.github/workflows/android-ci.yml). 
 
 A cada push ou pull request para o branch develop, o workflow executa automaticamente as seguintes tarefas:  
    1.  Lint Check: Analisa o código em busca de problemas estruturais e de qualidade.                                                                                                        

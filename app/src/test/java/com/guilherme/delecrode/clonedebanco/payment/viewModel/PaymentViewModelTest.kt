@@ -84,7 +84,7 @@ class PaymentViewModelTest {
 
         viewModel.uiState.test {
             val state = awaitItem()
-            Assert.assertEquals(errorMessage, state.error)
+            Assert.assertEquals("Não foi possível carregar seus pagamentos. Verifique sua conexão e tente novamente.", state.error)
             Assert.assertEquals(false, state.isLoading)
             cancelAndIgnoreRemainingEvents()
         }

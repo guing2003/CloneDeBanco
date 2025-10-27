@@ -87,7 +87,7 @@ class AuthViewModelTest {
             awaitItem()
             val failureState = awaitItem()
 
-            assertEquals(errorMessage, failureState.error)
+            assertEquals("Email ou senha inválidos. Tente novamente.", failureState.error)
             assertFalse(failureState.isLoading)
             assertNull(failureState.user)
 

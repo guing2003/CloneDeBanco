@@ -17,6 +17,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -121,13 +122,24 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.height(24.dp))
 
-            Icon(
-                painter = painterResource(id = R.drawable.img_logo),
-                contentDescription = "Logo do App",
-                modifier = Modifier.size(250.dp),
-                tint = Color.Unspecified
-            )
 
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = MaterialTheme.shapes.large
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.img_logo),
+                    contentDescription = "Logo do App",
+                    modifier = Modifier.size(250.dp),
+                    tint = Color.Unspecified
+                )
+            }
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
@@ -198,7 +210,6 @@ fun LoginScreen(
         }
     }
 }
-
 
 
 @Preview(showBackground = true)

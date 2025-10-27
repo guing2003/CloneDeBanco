@@ -50,7 +50,7 @@ class AuthViewModel(
 
             result.fold(
                 onSuccess = { user -> onLoginSuccess(user) },
-                onFailure = { error -> onLoginFailure(error.message ?: "Erro desconhecido") }
+                onFailure = { onLoginFailure() }
             )
         }
     }
@@ -64,10 +64,10 @@ class AuthViewModel(
         )
     }
 
-    private fun onLoginFailure(message: String) {
+    private fun onLoginFailure() {
         _uiState.value = _uiState.value.copy(
             isLoading = false,
-            error = message,
+            error = "Email ou senha inválidos. Tente novamente.",
             isLoginSuccessful = false
         )
     }

@@ -34,7 +34,7 @@ class PaymentViewModel(private val paymentRepository: PaymentRepository) : ViewM
                         onFailure = { error ->
                             _uiState.value = _uiState.value.copy(
                                 isLoading = false,
-                                error = error.message ?: "Erro ao carregar pagamentos",
+                                error = "Não foi possível carregar seus pagamentos. Verifique sua conexão e tente novamente.",
                                 isRefreshing = false
                             )
                         }

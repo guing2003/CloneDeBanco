@@ -5,7 +5,6 @@ import app.cash.turbine.test
 import com.guilherme.delecrode.clonedebanco.data.local.dao.PaymentDao
 import com.guilherme.delecrode.clonedebanco.data.local.entity.PaymentEntity
 import com.guilherme.delecrode.clonedebanco.data.mapper.toDomain
-import com.guilherme.delecrode.clonedebanco.data.mapper.toEntity
 import com.guilherme.delecrode.clonedebanco.data.model.PaymentResponseDTO
 import com.guilherme.delecrode.clonedebanco.data.remote.service.PaymentApiService
 import com.guilherme.delecrode.clonedebanco.data.repository.PaymentRepositoryImpl
@@ -62,7 +61,7 @@ class PaymentRepositoryImplTest {
 
         assertTrue(result.isSuccess)
         assertEquals(1, result.getOrNull()?.size)
-        assertEquals(paymentResponseDTO.toEntity().toDomain(), result.getOrNull()?.first())
+        assertEquals(paymentResponseDTO.toDomain(), result.getOrNull()?.first())
 
         coVerify { dao.insertPayments(any()) }
     }

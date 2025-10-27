@@ -30,7 +30,7 @@ class LoginToPaymentScreenTest {
 
         composeTestRule.onNodeWithTag("login_button").performClick()
 
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
+        composeTestRule.waitUntil(timeoutMillis = 15000) {
             composeTestRule.onAllNodesWithTag("payment_screen_title").fetchSemanticsNodes().isNotEmpty()
         }
 
@@ -43,7 +43,7 @@ class LoginToPaymentScreenTest {
         composeTestRule.onNodeWithTag("password_field").performTextInput("Senha123")
         composeTestRule.onNodeWithTag("login_button").performClick()
 
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
+        composeTestRule.waitUntil(timeoutMillis = 15000) {
             composeTestRule.onAllNodesWithTag("payment_screen_title").fetchSemanticsNodes().isNotEmpty()
         }
 

@@ -2,6 +2,8 @@ package com.guilherme.delecrode.clonedebanco.ui.screens.payament
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -116,7 +119,7 @@ fun PaymentScreen(
             Spacer(modifier = Modifier.height(18.dp))
 
             Text(
-                text = "Cliente: ${user.value?.name}",
+                text = "Cliente: ${user.value?.name ?: "Usuario"}",
                 color = PrimaryTextColor,
                 fontSize = 18.sp,
             )
@@ -163,13 +166,13 @@ fun PaymentScreen(
                                 fontSize = 16.sp,
                             )
                             Text(
-                                text = payment.paymentDate,
+                                text = payment.paymentDate ?: "00/00/0000",
                                 color = SecondaryTextColor,
                                 fontSize = 14.sp,
                             )
                         }
                         Text(
-                            text = payment.electricityBill,
+                            text = payment.electricityBill ?: "R$0,00",
                             color = SecondaryTextColor,
                             fontSize = 16.sp,
                         )
@@ -177,9 +180,17 @@ fun PaymentScreen(
                 }
             }
         }
-
+        if (uiState.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f)),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        }
     }
-
 }
 
 
